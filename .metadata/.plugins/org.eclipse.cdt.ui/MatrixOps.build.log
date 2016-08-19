@@ -1,0 +1,13 @@
+11:00:01 **** Incremental Build of configuration Debug for project MatrixOps ****
+make all 
+Building file: ../src/MatrixOps.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/MatrixOps.d" -MT"src/MatrixOps.o" -o "src/MatrixOps.o" "../src/MatrixOps.c"
+../src/MatrixOps.c:8:11: fatal error: 'MatrixOps.h' file not found
+#include        "MatrixOps.h"
+                ^
+1 error generated.
+make: *** [src/MatrixOps.o] Error 1
+
+11:00:01 Build Finished (took 124ms)
+

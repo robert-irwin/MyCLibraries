@@ -1,0 +1,33 @@
+/*
+ * MatrixOps.c
+ *
+ *  Created on: Aug 9, 2016
+ *      Author: robertirwin
+ */
+
+#include 	"MatrixOps.h"
+
+
+/* Name: 		MyMatInit
+ * Description: Initializes the structure MyMat. Takes a pointer to the MyMat
+ * 				structure, the number of desired rows, the number of desired columns,
+ * 				a void pointer to the array containing all elements of the desired matrix,
+ * 				and the type of the elements in the matrix. The type of the elements
+ * 				must be defined according to the types in the MyMatType enum.
+ * 	***NOTE***: The elements array must adhere to the following format.
+ * 	--       --
+ * 	| a b c d | ------\       [a, b, c, d, e, f, g, h]
+ * 	| e f g h | ------/
+ * 	--       --
+ */
+void MyMatInit(MyMat * mat, uint16_t rows, uint16_t cols, void * elements, MyMatType type)
+{
+	// local variables
+
+	switch(type){
+	case TYPE_INT:
+		mat->matrix = malloc(rows * cols * sizeof(int));
+		memmove()
+		break;
+	}
+}

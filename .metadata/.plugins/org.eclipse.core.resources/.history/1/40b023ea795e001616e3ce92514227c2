@@ -1,0 +1,48 @@
+/*
+ * MatrixOps.h
+ *
+ *  Created on: Aug 9, 2016
+ *      Author: robertirwin
+ */
+
+#ifndef MATRIXOPS_H_
+#define MATRIXOPS_H_
+
+#include	<stdio.h>
+#include	<stdint.h>
+
+typedef enum MyMatType{
+	TYPE_INT,
+	TYPE_FLOAT,
+	TYPE_UINT32,
+	TYPE_UINT16,
+	TYPE_CHAR,
+	TYPE_UCHAR
+
+}MyMatType;
+
+typedef struct MyMat{
+	void * mat;
+	void ** row; // pointer to pointer of each row
+	uint16_t numrows;
+	uint16_t numcols;
+	void ** row_trans;
+}MyMat;
+
+/* Name: 		MyMatInit
+ * Description: Initializes the structure MyMat. Takes a pointer to the MyMat
+ * 				structure, the number of desired rows, the number of desired columns,
+ * 				a void pointer to the array containing all elements of the desired matrix,
+ * 				and the type of the elements in the matrix. The type of the elements
+ * 				must be defined according to the types in the MyMatType enum.
+ * 	***NOTE***: The elements array must adhere to the following format.
+ * 	--       --
+ * 	| a b c d | ------\       [a, b, c, d, e, f, g, h]
+ * 	| e f g h | ------/
+ * 	--       --
+ */
+void MyMatInit(MyMat * mat, uint16_t rows, uint16_t cols, void * elements, MyMatType type);
+
+
+
+#endif /* MATRIXOPS_H_ */
