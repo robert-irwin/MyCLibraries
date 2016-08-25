@@ -50,5 +50,28 @@ void MyMatInit(MyMat * mat, uint16_t rows, uint16_t cols, void * elements, MyMat
  */
 void displayMatrix(MyMat * mat);
 
+/* Name:		MyMatAppendRow
+ * Description:	Appends a new row to the matrix pointed to by the MyMat structure. The
+ * 				oldest (top) row is removed from the matrix.
+ */
+void MyMatAppendRow(MyMat * mat, void * new_row);
+
+/* Name: 		MyMatTranspose
+ * Description: Inputs to this function are the pointer to the matrix structure
+ * 				that will be transposed, and the pointer to the matrix structure that will
+ * 				hold the transposed matrix.
+ * ** NOTE ** 	This function allocates space for trans->matrix and trans->rows. The user must
+ * 				free this memory or risk having memory leaks in their software.
+ */
+void MyMatTranspose(MyMat * mat, MyMat * trans);
+
+/* Name:		MyMatMultiply
+ * Description:	Inputs are the pointer to the two matrices to be multipled, and the pointer
+ * 				to the matrix the result is to be stored in. AB=res. Returns 1 if the operation
+ * 				was successful and returns 0 if a dimension mismatch has occured.
+ * ** NOTE ** 	This function allocates space for res->matrix and res->rows. The user must
+ * 				free this memory or risk having memory leaks in their software.
+ */
+int MyMatMultiply(MyMat * A, MyMat * B, MyMat * res);
 
 #endif /* MATRIXOPS_H_ */
