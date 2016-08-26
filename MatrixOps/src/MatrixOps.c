@@ -583,7 +583,8 @@ void MyMatTranspose(MyMat * mat, MyMat * trans)
  */
 int MyMatMultiply(MyMat * A, MyMat * B, MyMat * res)
 {
-
+	int i = 0;
+	void * sum = NULL;
 	// Ensure the dimensions of the matrices are compatible.
 	//
 	if (A->numcols != B->numrows)
@@ -602,6 +603,10 @@ int MyMatMultiply(MyMat * A, MyMat * B, MyMat * res)
 	res->type = A->type;
 	switch(res->type){
 	case TYPE_INT:
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(int));
+		*sum = 0;
 		// initialize the pointer to array of pointers
 		//
 		res->rows = malloc(res->numrows * sizeof(int *));
@@ -612,23 +617,262 @@ int MyMatMultiply(MyMat * A, MyMat * B, MyMat * res)
 
 		// begin multiplying the matrices
 		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(int))) * *(B->rows[colA] + (colB * sizeof(int)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(int)), sum, sizeof(int));
 
-		break;
-	case TYPE_INT:
-		typelen = sizeof(int);
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (int *) (res->matrix + (i * res->numcols * sizeof(int)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
 		break;
 	case TYPE_FLOAT:
-		typelen = sizeof(float);
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(float));
+		*sum = 0;
+		// initialize the pointer to array of pointers
+		//
+		res->rows = malloc(res->numrows * sizeof(float *));
+
+		// allocate space for the matrix.
+		//
+		res->matrix = malloc(res->numrows * res->numcols * sizeof(float));
+
+		// begin multiplying the matrices
+		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(float))) * *(B->rows[colA] + (colB * sizeof(float)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(float)), sum, sizeof(float));
+
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (float *) (res->matrix + (i * res->numcols * sizeof(float)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
 		break;
 	case TYPE_UINT32:
-		typelen = sizeof(uint32_t);
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(uint32_t));
+		*sum = 0;
+		// initialize the pointer to array of pointers
+		//
+		res->rows = malloc(res->numrows * sizeof(uint32_t *));
+
+		// allocate space for the matrix.
+		//
+		res->matrix = malloc(res->numrows * res->numcols * sizeof(uint32_t));
+
+		// begin multiplying the matrices
+		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(uint32_t))) * *(B->rows[colA] + (colB * sizeof(uint32_t)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(uint32_t)), sum, sizeof(uint32_t));
+
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (uint32_t *) (res->matrix + (i * res->numcols * sizeof(uint32_t)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
 		break;
 	case TYPE_UINT16:
-		typelen = sizeof(uint16_t);
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(uint16_t));
+		*sum = 0;
+		// initialize the pointer to array of pointers
+		//
+		res->rows = malloc(res->numrows * sizeof(uint16_t *));
+
+		// allocate space for the matrix.
+		//
+		res->matrix = malloc(res->numrows * res->numcols * sizeof(uint16_t));
+
+		// begin multiplying the matrices
+		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(uint16_t))) * *(B->rows[colA] + (colB * sizeof(uint16_t)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(uint16_t)), sum, sizeof(uint16_t));
+
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (uint16_t *) (res->matrix + (i * res->numcols * sizeof(uint16_t)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
 		break;
 	case TYPE_CHAR:
-		typelen = sizeof(char);
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(char));
+		*sum = 0;
+		// initialize the pointer to array of pointers
+		//
+		res->rows = malloc(res->numrows * sizeof(char *));
+
+		// allocate space for the matrix.
+		//
+		res->matrix = malloc(res->numrows * res->numcols * sizeof(char));
+
+		// begin multiplying the matrices
+		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(char))) * *(B->rows[colA] + (colB * sizeof(char)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(char)), sum, sizeof(char));
+
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (char *) (res->matrix + (i * res->numcols * sizeof(char)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
+		break;
+	case TYPE_UCHAR:
+		// initialize the temporary sum variable
+		//
+		sum = malloc(sizeof(uint8_t));
+		*sum = 0;
+		// initialize the pointer to array of pointers
+		//
+		res->rows = malloc(res->numrows * sizeof(uint8_t *));
+
+		// allocate space for the matrix.
+		//
+		res->matrix = malloc(res->numrows * res->numcols * sizeof(uint8_t));
+
+		// begin multiplying the matrices
+		//
+		for (int rowA = 0; rowA < A->numrows; rowA++)
+		{
+			for (int colB = 0; colB < B->numcols; colB++)
+			{
+				for (int colA = 0; colA < A->numcols; colA++)
+				{
+					*sum += *(A->rows[rowA] + (colA * sizeof(uint8_t))) * *(B->rows[colA] + (colB * sizeof(uint8_t)));
+				}
+				// move the sum to the current place in the  result matrix
+				//
+				memcpy(res->matrix + (i * sizeof(uint8_t)), sum, sizeof(uint8_t));
+
+				*sum = 0; // reset sum
+
+				//move to the next place in the result matrix for the next iteration
+				//
+				i++;
+			}
+		}
+
+		// assign the row pointers to the proper place in the matrix
+		//
+		for (int i = 0; i < res->numrows; i++)
+		{
+			res->rows[i] = (uint8_t *) (res->matrix + (i * res->numcols * sizeof(uint8_t)));
+		}
+		// unallocate the memory set aside sum
+		//
+		free(sum);
 		break;
 	}
+	return(1);
 }
 
