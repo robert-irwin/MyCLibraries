@@ -58,3 +58,30 @@ void CircBuffGet(CircularBuff *cb, uint16_t * tail)
 	}
 	else (cb->tailptr)++;
 }
+
+/* Name:		GetOld2New
+ * Description:	Takes the pointer to the circular buffer and a uint16_t pointer to an array
+ * 				with capacity elements. This function will store the capacity elements
+ * 				starting with the element currently pointed to by the tailptr. The tailptr
+ * 				will be incremented by one after the function ends.
+ */
+void GetOld2New(CircularBuff * cb, uint16_t * vec)
+{
+	// first find where cb->tailptr will point after this function executes;
+	//
+	uint16_t * newtail;
+	if (cb->tailptr == cb->buffend)
+		newtail = cb->buffbegin;
+	else newtail = cb->tailptr+1;
+
+	// fill the vector
+	//
+	for (int i = 0; i < cb->capacity; i++)
+	{
+		CircBuffGet(cb, vec+i);
+	}
+
+	// assign the tailptr to its proper place in the buffer
+	//
+	cb->tailptr = newtail;
+}

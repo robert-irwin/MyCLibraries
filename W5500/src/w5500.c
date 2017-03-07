@@ -290,7 +290,7 @@ int w5500UDPrecv(w5500packet * pac, char sockID, char * recvbuf)
 
 	// move the data to the users receive buffer
 	//
-	memmove(recvbuf, pac->recvpntr+8, rxBufsize);
+	memmove(recvbuf, pac->recvpntr, rxBufsize);
 
 	// increment the Socket Read Data Register accordingly
 	//

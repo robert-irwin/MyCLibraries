@@ -40,5 +40,13 @@ void CircBuffPut(CircularBuff *cb, uint16_t * val);
  */
 void CircBuffGet(CircularBuff *cb, uint16_t * tail);
 
+/* Name:		GetOld2New
+ * Description:	Takes the pointer to the circular buffer and a uint16_t pointer to an array
+ * 				with capacity elements. This function will store the capacity elements
+ * 				starting with the element currently pointed to by the tailptr. The tailptr
+ * 				will be incremented by one after the function ends.
+ */
+void GetOld2New(CircularBuff * cb, uint16_t * vec);
+
 #endif /* CIRCULARBUFF_H_ */
 

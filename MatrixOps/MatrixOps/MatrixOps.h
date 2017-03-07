@@ -12,6 +12,8 @@
 # include 	<string.h>
 # include	<stdlib.h>
 # include 	<stdio.h>
+# include 	<stdint.h>
+
 typedef enum MyMatType{
 	TYPE_INT,
 	TYPE_FLOAT,
